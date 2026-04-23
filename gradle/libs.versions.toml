@@ -1,19 +1,20 @@
 [versions]
-agp = "9.1.0"
-annotation = "1.9.1"
+agp = "9.1.1"
+annotation = "1.10.0"
 dalvikDx = "16.0.1"
-dexkit = "2.0.7"
-kotlin = "2.3.10"
-kotlinpoet = "2.2.0"
-ksp = "2.3.2"
-protobuf = "0.9.6"
-protobuf-java = "4.34.0"
+kyant0-backdrop = "2.0.0-alpha03"
+dexkit = "2.2.0"
+kotlin = "2.3.20"
+kotlinpoet = "2.3.0"
+ksp = "2.3.6"
+protobuf = "0.10.0"
+protobuf-java = "4.34.1"
 xposed = "82"
 libxposed = "101.0.0"
-jetbrainsKotlinJvm = "2.3.10"
+jetbrainsKotlinJvm = "2.3.20"
 kotlinx-coroutines = "1.10.2"
 ktx = "1.18.0"
-serialization = "1.10.0"
+serialization = "1.11.0"
 compose-bom = "2026.03.01"
 activity-compose = "1.13.0"
 lifecycle = "2.10.0"
@@ -22,6 +23,7 @@ lifecycle = "2.10.0"
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
 dalvik-dx = { module = "com.jakewharton.android.repackaged:dalvik-dx", version.ref = "dalvikDx" }
+kyant0-backdrop = { group = "io.github.kyant0", name = "backdrop", version.ref = "kyant0-backdrop" }
 kotlinpoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlinpoet" }
 ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }

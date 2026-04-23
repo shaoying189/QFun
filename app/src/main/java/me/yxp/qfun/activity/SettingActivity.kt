@@ -29,7 +29,9 @@ class SettingActivity : BaseComposeActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
         MainHook.initAllConfigUI()
+
         setContent {
             val vm: SettingViewModel = viewModel()
             val appMetrics = applicationContext.resources.displayMetrics
@@ -37,10 +39,16 @@ class SettingActivity : BaseComposeActivity() {
                 density = appMetrics.density,
                 fontScale = appMetrics.scaledDensity / appMetrics.density
             )
+
             CompositionLocalProvider(LocalDensity provides stableDensity) {
                 QFunTheme(isDarkTheme) {
                     SettingsScreen(
                         categories = vm.categories,
+                        searchResults = vm.searchResults,
+                        searchQuery = vm.searchQuery,
+                        onQueryChange = { vm.searchQuery = it },
+                        isSearchActive = vm.isSearchActive,
+                        onSearchActiveChange = { vm.isSearchActive = it },
                         versionInfo = vm.buildVersionInfo(),
                         themeMode = themeMode,
                         isDarkTheme = isDarkTheme,
@@ -58,8 +66,10 @@ class SettingActivity : BaseComposeActivity() {
                         showUpdateLogDialog = vm.showUpdateLogDialog,
                         updateLogState = vm.updateLogState,
                         onUpdateLogClick = vm::showUpdateLog,
-                        onDismissUpdateLog = vm::dismissUpdateLog
+                        onDismissUpdateLog = vm::dismissUpdateLog,
+                        onBackClick = ::finish
                     )
+
                     ConfirmDialog(
                         visible = vm.showDonateDialog,
                         title = "支持作者",
@@ -72,6 +82,7 @@ class SettingActivity : BaseComposeActivity() {
                             openUrl("http://127.0.0.1/")
                         }
                     )
+
                     vm.updateInfo?.let { info ->
                         ConfirmDialog(
                             visible = vm.showUpdateDialog,
@@ -97,9 +108,9 @@ class SettingActivity : BaseComposeActivity() {
     }
 
     private fun startExportConfig() {
-        val fileName = "QFun_Backup_${QQCurrentEnv.currentUin}_${
-            SimpleDateFormat("yyyyMMdd_HHmm", Locale.getDefault()).format(Date())
-        }.zip"
+        val dateStr = SimpleDateFormat("yyyyMMdd_HHmm", Locale.getDefault()).format(Date())
+        val fileName = "QFun_Backup_${QQCurrentEnv.currentUin}_$dateStr.zip"
+        
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "application/zip"
@@ -121,6 +132,7 @@ class SettingActivity : BaseComposeActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != RESULT_OK || data == null) return
         val uri = data.data ?: return
+
         when (requestCode) {
             REQUEST_CODE_EXPORT -> performExport(uri)
             REQUEST_CODE_IMPORT -> performImport(uri)

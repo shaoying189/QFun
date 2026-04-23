@@ -5,7 +5,6 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
@@ -88,7 +87,7 @@ extensions.configure<ApplicationExtension> {
         }
     }
 
-    buildToolsVersion = "36.0.0"
+    buildToolsVersion = "36.1.0"
 }
 
 dependencies {
@@ -111,6 +110,7 @@ dependencies {
     implementation(libs.compose.animation)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.kyant0.backdrop )
 
     ksp(projects.processor)
 
@@ -121,7 +121,7 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.34.0"
+        artifact = "com.google.protobuf:protoc:4.34.1"
     }
 
     generateProtoTasks {
